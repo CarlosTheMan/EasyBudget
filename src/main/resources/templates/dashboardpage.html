@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<body>
+<form action="/AddExpense">
+    <label>Category</label>
+    <select name="category">
+        <option value="Food">Food</option>
+        <option value="Utilities">Utilities</option>
+        <option value="Home">Home</option>
+        <option value="Gas">Gas</option>
+        <option value="Groceries">Groceries</option>
+        <option value="Electronics">Electronics</option>
+        <option value="Misc.">Misc.</option>
+    </select><br>
+
+    <label>Expense&nbsp;</label>
+    <input type="text" name="expense"><br>
+
+    <label>Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+    <select name="date">
+        <option value="1">Monday</option>
+        <option value="2">Tuesday</option>
+        <option value="3">Wednesday</option>
+        <option value="4">Thursday</option>
+        <option value="5">Friday</option>
+        <option value="6">Saturday</option>
+        <option value="7">Sunday</option>
+    </select><br><br>
+    <input type="submit" value="Add Expense"><br><br><br/>
+</form><br>
+<form action="/Home">
+    <input type="submit" value="Return">
+</form><br>
+<table border="1">
+    <tr>
+        <th>Category</th>
+        <th>Expense</th>
+        <th>Date</th>
+    </tr><br>
+    <tr th:each="expense : ${expenseObj}">
+        <td th:text="${expense.getCategory()}"></td>
+        <td th:text="${expense.getExpense()}"></td>
+        <td th:text="${expense.getDate()}"></td>
+    </tr>
+</table>
+</body>
+</html>
