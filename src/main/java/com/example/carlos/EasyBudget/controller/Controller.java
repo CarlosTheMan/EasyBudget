@@ -12,76 +12,97 @@ import org.springframework.web.servlet.ModelAndView;
 @RestController
 public class Controller {
 
+    //Initialize DB for user information
     @Autowired
     Database repoUser;
 
+    //Initialize DB for user expenses
     @Autowired
     DatabaseExpenses repoExpense;
 
+    //Public variables
     public String useridSave;
     public UserData userData;
 
-    //Home page
+    //Login page
     @RequestMapping("/Home")
     public ModelAndView homePage(){
         return new ModelAndView("homepage");
     }
 
-    //Validate User
+    //Login and validate User
     @RequestMapping("/Login")
     public ModelAndView validateUser(UserData userinfo){
         ServiceLayer service = new ServiceLayer();
-        ModelAndView mvcDash = new ModelAndView("adduserpage");
+        ModelAndView mvcDash = new ModelAndView("loginerrorpage");
+        //Validate user credentials before logging in
         if (service.validateCredentials(userinfo, repoUser)) {
             useridSave = userinfo.getUserid();
             userData = userinfo;
-            mvcDash.setViewName("dashboardpage");
 
-            //Add objects
+            //Load initial objects
             mvcDash.addObject("infoObj", service);
             mvcDash.addObject("userObj", userinfo);
             mvcDash.addObject("expenseObj", service.showExpenses(useridSave, repoExpense));
+            mvcDash.setViewName("dashboardpage");
             return mvcDash;
         }
         return mvcDash;
     }
 
+    //Dashboard page
     @RequestMapping("/Dashboard")
     public ModelAndView loadDash(){
-        ServiceLayer service = new ServiceLayer();
-        ModelAndView mvcDash = new ModelAndView("dashboardpage");
+        //If user is not logged in - return to homepage
+        if (useridSave == null) {
+            return new ModelAndView("homepage");
+        }
+        else {
+            ServiceLayer service = new ServiceLayer();
+            ModelAndView mvcDash = new ModelAndView("dashboardpage");
 
-        //Load objects
-        mvcDash.addObject("infoObj", service);
-        mvcDash.addObject("userObj", userData);
-        mvcDash.addObject("expenseObj", service.showExpenses(useridSave, repoExpense));
-        return mvcDash;
+            //Load objects to page
+            mvcDash.addObject("infoObj", service);
+            mvcDash.addObject("userObj", userData);
+            mvcDash.addObject("expenseObj", service.showExpenses(useridSave, repoExpense));
+            return mvcDash;
+        }
     }
 
     //Add Users to DB
     @RequestMapping("/AddUsers")
     public ModelAndView addUser(UserData addUserData){
         ServiceLayer serviceLayer = new ServiceLayer();
-        if (!serviceLayer.checkIfUserExists(addUserData, repoUser)){
-            repoUser.save(addUserData);
-            return new ModelAndView("useraddedpage");
+        //Add User if username doesn't exist and if user did not provide null
+        if (addUserData.getUserid() != null){
+            if (!serviceLayer.checkIfUserExists(addUserData, repoUser)) {
+                repoUser.save(addUserData);
+                return new ModelAndView("useraddedpage");
+            }
         }
-        return new ModelAndView("homepage");
+        return new ModelAndView("adduserpage");
     }
 
     //Add Expenses
     @RequestMapping("/AddExpense")
     public ModelAndView addExpense(UserDataExpenses addUserDataExpenses){
-        ServiceLayer expense = new ServiceLayer();
-        if (useridSave == null){
-            return new ModelAndView("homepage");
-        }
-        else {
+        ServiceLayer date = new ServiceLayer();
+        if (useridSave != null){
+            //Initialize userID and date for the userExpense repo
             addUserDataExpenses.setUserid(useridSave);
-            addUserDataExpenses.setDate(expense.dateOut(Integer.parseInt(addUserDataExpenses.getDate())));
+            addUserDataExpenses.setDate(date.dateOut(Integer.parseInt(addUserDataExpenses.getDate())));
+
+            //Save object
             repoExpense.save(addUserDataExpenses);
+            return new ModelAndView("expensepage");
         }
-        return new ModelAndView("expensepage");
+        return new ModelAndView("homepage");
+    }
+    // Delete expense
+    @RequestMapping("/DeleteExpense")
+    public ModelAndView deleteExpense(String id) {
+        repoExpense.deleteById(id);
+        return new ModelAndView("expensedeleted");
     }
 
     //Easy Budget Login
