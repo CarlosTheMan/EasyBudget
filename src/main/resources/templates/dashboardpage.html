@@ -18,13 +18,13 @@
 
     <label>Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
     <select name="date">
-        <option value="1">Monday</option>
-        <option value="2">Tuesday</option>
-        <option value="3">Wednesday</option>
-        <option value="4">Thursday</option>
-        <option value="5">Friday</option>
-        <option value="6">Saturday</option>
-        <option value="7">Sunday</option>
+        <option value="0">Monday</option>
+        <option value="1">Tuesday</option>
+        <option value="2">Wednesday</option>
+        <option value="3">Thursday</option>
+        <option value="4">Friday</option>
+        <option value="5">Saturday</option>
+        <option value="6">Sunday</option>
     </select><br><br>
     <input type="submit" value="Add Expense"><br><br><br/>
 </form><br>
@@ -35,12 +35,140 @@
     <tr>
         <th>Category</th>
         <th>Expense</th>
+        <th>Date<th>
+    </tr><br>
+    <tr th:each="expense : ${expenseObj}">
+        <span th:if="${expense.getDate() == infoObj.dateOut(0)}">
+            <td th:text="${expense.getCategory()}"></td>
+            <td th:text="${expense.getExpense()}"></td>
+            <td th:text="${expense.getDate()}"></td>
+            <td>
+                <form action="/DeleteExpense">
+                    <input type="hidden" name="id" th:value="${expense.getId()}">
+                <input type="submit" value="Delete">
+                </form>
+            </td>
+        </span>
+    </tr>
+</table>
+<table border="1">
+    <tr>
+        <th>Category</th>
+        <th>Expense</th>
         <th>Date</th>
     </tr><br>
     <tr th:each="expense : ${expenseObj}">
-        <td th:text="${expense.getCategory()}"></td>
-        <td th:text="${expense.getExpense()}"></td>
-        <td th:text="${expense.getDate()}"></td>
+        <span th:if="${expense.getDate() == infoObj.dateOut(1)}">
+            <td th:text="${expense.getCategory()}"></td>
+            <td th:text="${expense.getExpense()}"></td>
+            <td th:text="${expense.getDate()}"></td>
+            <td>
+                <form action="/DeleteExpense">
+                    <input type="hidden" name="id" th:value="${expense.getId()}">
+                <input type="submit" value="Delete">
+                </form>
+            </td>
+        </span>
+    </tr>
+</table>
+<table border="1">
+    <tr>
+        <th>Category</th>
+        <th>Expense</th>
+        <th>Date</th>
+    </tr><br>
+    <tr th:each="expense : ${expenseObj}">
+        <span th:if="${expense.getDate() == infoObj.dateOut(2)}">
+            <td th:text="${expense.getCategory()}"></td>
+            <td th:text="${expense.getExpense()}"></td>
+            <td th:text="${expense.getDate()}"></td>
+            <td>
+                <form action="/DeleteExpense">
+                    <input type="hidden" name="id" th:value="${expense.getId()}">
+                <input type="submit" value="Delete">
+                </form>
+            </td>
+        </span>
+    </tr>
+</table>
+<table border="1">
+    <tr>
+        <th>Category</th>
+        <th>Expense</th>
+        <th>Date</th>
+    </tr><br>
+    <tr th:each="expense : ${expenseObj}">
+        <span th:if="${expense.getDate() == infoObj.dateOut(3)}">
+            <td th:text="${expense.getCategory()}"></td>
+            <td th:text="${expense.getExpense()}"></td>
+            <td th:text="${expense.getDate()}"></td>
+            <td>
+                <form action="/DeleteExpense">
+                    <input type="hidden" name="id" th:value="${expense.getId()}">
+                <input type="submit" value="Delete">
+                </form>
+            </td>
+        </span>
+    </tr>
+</table>
+<table border="1">
+    <tr>
+        <th>Category</th>
+        <th>Expense</th>
+        <th>Date</th>
+    </tr><br>
+    <tr th:each="expense : ${expenseObj}">
+        <span th:if="${expense.getDate() == infoObj.dateOut(4)}">
+            <td th:text="${expense.getCategory()}"></td>
+            <td th:text="${expense.getExpense()}"></td>
+            <td th:text="${expense.getDate()}"></td>
+            <td>
+                <form action="/DeleteExpense">
+                    <input type="hidden" name="id" th:value="${expense.getId()}">
+                <input type="submit" value="Delete">
+                </form>
+            </td>
+        </span>
+    </tr>
+</table>
+<table border="1">
+    <tr>
+        <th>Category</th>
+        <th>Expense</th>
+        <th>Date</th>
+    </tr><br>
+    <tr th:each="expense : ${expenseObj}">
+        <span th:if="${expense.getDate() == infoObj.dateOut(5)}">
+            <td th:text="${expense.getCategory()}"></td>
+            <td th:text="${expense.getExpense()}"></td>
+            <td th:text="${expense.getDate()}"></td>
+            <td>
+                <form action="/DeleteExpense">
+                    <input type="hidden" name="id" th:value="${expense.getId()}">
+                <input type="submit" value="Delete">
+                </form>
+            </td>
+        </span>
+    </tr>
+</table>
+<table border="1">
+    <tr>
+        <th>Category</th>
+        <th>Expense</th>
+        <th>Date</th>
+    </tr><br>
+    <tr th:each="expense : ${expenseObj}">
+        <span th:if="${expense.getDate() == infoObj.dateOut(6)}">
+            <td th:text="${expense.getCategory()}"></td>
+            <td th:text="${expense.getExpense()}"></td>
+            <td th:text="${expense.getDate()}"></td>
+            <td>
+                <form action="/DeleteExpense">
+                    <input type="hidden" name="id" th:value="${expense.getId()}">
+                <input type="submit" value="Delete">
+                </form>
+            </td>
+        </span>
     </tr>
 </table>
 </body>
