@@ -1,13 +1,14 @@
 package com.example.carlos.EasyBudget.service;
 
-import com.example.carlos.EasyBudget.persistence.model.UserData;
-import com.example.carlos.EasyBudget.persistence.model.UserDataExpenses;
-import com.example.carlos.EasyBudget.persistence.mongodb.Database;
-import com.example.carlos.EasyBudget.persistence.mongodb.DatabaseExpenses;
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.example.carlos.EasyBudget.persistence.model.UserData;
+import com.example.carlos.EasyBudget.persistence.model.UserDataExpenses;
+import com.example.carlos.EasyBudget.persistence.mongodb.Database;
+import com.example.carlos.EasyBudget.persistence.mongodb.DatabaseExpenses;
 
 
 public class ServiceLayer {
@@ -51,4 +52,17 @@ public class ServiceLayer {
         }
         return expenses;
     }
-}
+
+    public void deleteExpense(String id, DatabaseExpenses repo) {
+        repo.deleteById(id);
+
+//        for (int i = 0; i < repo.findAll().size(); i++) {
+//            if (repo.findAll().get(i).getExpense().equals(expense.getExpense())) {
+//                if (repo.findAll().get(i).getCategory().equals(expense.getCategory())) {
+//                    if (repo.findAll().get(i).getUserid().equals(expense.getUserid())) {
+//                        System.out.println(repo.findAll().get(i).toString())
+       }
+//                }
+//            }
+//        }
+    }
