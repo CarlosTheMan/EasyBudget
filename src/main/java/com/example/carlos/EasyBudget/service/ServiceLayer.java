@@ -4,7 +4,6 @@ import com.example.carlos.EasyBudget.persistence.model.UserData;
 import com.example.carlos.EasyBudget.persistence.model.UserDataExpenses;
 import com.example.carlos.EasyBudget.persistence.mongodb.Database;
 import com.example.carlos.EasyBudget.persistence.mongodb.DatabaseExpenses;
-
 import java.time.LocalDate;
 import java.time.temporal.WeekFields;
 import java.util.ArrayList;
@@ -39,20 +38,14 @@ public class ServiceLayer {
         int day = Integer.parseInt(date.with(WeekFields.ISO.getFirstDayOfWeek()).toString().substring(8));
         int year = Integer.parseInt(date.with(WeekFields.ISO.getFirstDayOfWeek()).toString().substring(0, 4));
 
-        byte weekDay = 0;
-        List weekDays = new ArrayList<>();
-        while (weekDay < 8) {
-            weekDays.add("Date: " + year + "-" + month + "-" + (day + weekDay));
-            weekDay++;
-        }
-        return weekDays.get(d).toString();
+        return "Date: " + year + "-" + month + "-" + (day + d);
     }
 
     public List<UserDataExpenses> showExpenses(String userID, DatabaseExpenses repo) {
         List<UserDataExpenses> expenseList = repo.findAll();
         List<UserDataExpenses> expenses = new ArrayList<>();
         for (UserDataExpenses expense : expenseList) {
-            if (expense.getUserid().equals(userID)){
+            if (expense.getUserid().equals(userID)) {
                 expenses.add(expense);
             }
         }
